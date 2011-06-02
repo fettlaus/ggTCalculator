@@ -4,7 +4,7 @@ Wir werden fuer Aufgabe 2 der Vorlesung _Verteilte Systeme_ eine verteilte ggT-B
 
 IDL-Datei
 =========
-**Stand: 02.06.2011 20:26**
+**Stand: 02.06.2011 22:34**
 
     module ggTCalculator
     {
@@ -29,6 +29,7 @@ IDL-Datei
             void stop();
         };
 
+        typedef sequence<string> StarterListe;
         interface Coordinator
         {
             exception noStarter{ string s;};
@@ -37,8 +38,9 @@ IDL-Datei
             void addStarter( in string startername, in Starter starter );
             void addProcess( in string startername, in long id, in Process process );
 
-            void calculate( in long timeout, in long mindelay, in long maxdelay, in long minprocess, in long maxprocess, in long ggT, in Log log ) raises(noStarter,
-            alreadyRunning);
+            StarterListe getStarterList();
+
+            void calculate( in long timeout, in long mindelay, in long maxdelay, in long minprocess, in long maxprocess, in long ggT, in Log log )raises(noStarter, alreadyRunning);
             void finished(in long r);
 
             boolean terminationStart();
