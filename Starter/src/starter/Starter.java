@@ -81,7 +81,7 @@ public class Starter {
         });
         
         // create new instance of Starter and get reference
-        StarterImpl starter = new StarterImpl(rootPoa, orb, nc, sdh, coordinator, name);
+        StarterImpl starter = new StarterImpl(rootPoa, orb, sdh, coordinator, name);
         ref = StarterHelper.narrow(rootPoa.servant_to_reference(starter));
         
         // bind to nameservice        

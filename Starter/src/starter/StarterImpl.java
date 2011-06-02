@@ -14,16 +14,14 @@ public class StarterImpl extends StarterPOA {
     POA rootPOA;
     Thread sdh;
     ORB orb;
-    NamingContextExt nc;
     String name;
     int nextID = 0;
     ArrayList<ggTCalculator.Process> processes = new ArrayList<ggTCalculator.Process>();
-    public StarterImpl(POA rootPOA,ORB orb, NamingContextExt nc, Thread sdh, Coordinator coordinator, String name){
+    public StarterImpl(POA rootPOA,ORB orb, Thread sdh, Coordinator coordinator, String name){
         this.coordinator = coordinator;
         this.rootPOA = rootPOA;
         this.sdh = sdh;
         this.orb = orb;
-        this.nc = nc;
         this.name = name;
     }
 
