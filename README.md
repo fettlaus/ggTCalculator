@@ -4,7 +4,7 @@ Wir werden fuer Aufgabe 2 der Vorlesung _Verteilte Systeme_ eine verteilte ggT-B
 
 IDL-Datei
 =========
-**Stand: 02.06.2011 19:38**
+**Stand: 02.06.2011 20:26**
 
     module ggTCalculator
     {
@@ -23,14 +23,8 @@ IDL-Datei
 
         interface Process
         {
-            attribute Process left;
-            attribute Process right;
-            attribute long number;
-            attribute Log log;
-            attribute double delay;
-            attribute long timeout;
-            attribute boolean ready;
             boolean terminate();
+            void set_params(in Process left, in Process right, in long number, in Log log, in double delay, in long timeout);
             void message(in long number);
             void stop();
         };

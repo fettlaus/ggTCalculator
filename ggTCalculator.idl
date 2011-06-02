@@ -15,14 +15,8 @@ module ggTCalculator
 
     interface Process
     {
-        attribute Process left;
-        attribute Process right;
-        attribute long number;
-        attribute Log log;
-        attribute double delay;
-        attribute long timeout;
-        attribute boolean ready;
         boolean terminate();
+        void set_params(in Process left, in Process right, in long number, in Log log, in double delay, in long timeout);
         void message(in long number);
         void stop();
     };
