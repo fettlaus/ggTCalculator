@@ -3,7 +3,6 @@ package starter;
 import java.util.ArrayList;
 
 import org.omg.CORBA.ORB;
-import org.omg.CosNaming.NamingContextExt;
 import org.omg.PortableServer.POA;
 import ggTCalculator.Coordinator;
 import ggTCalculator.ProcessHelper;
@@ -66,6 +65,11 @@ public class StarterImpl extends StarterPOA {
             }
         }).start();
 
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
 }
