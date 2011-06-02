@@ -25,7 +25,6 @@ IDL-Datei
         {
             attribute Process left;
             attribute Process right;
-            attribute long id;
             attribute long number;
             attribute Log log;
             attribute double delay;
