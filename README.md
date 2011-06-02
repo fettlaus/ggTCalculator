@@ -4,7 +4,7 @@ Wir werden fuer Aufgabe 2 der Vorlesung _Verteilte Systeme_ eine verteilte ggT-B
 
 IDL-Datei
 =========
-**Stand: 02.06.2011 18:56**
+**Stand: 02.06.2011 19:38**
 
     module ggTCalculator
     {
