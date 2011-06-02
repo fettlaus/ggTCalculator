@@ -6,6 +6,10 @@ import ggTCalculator.ProcessPOA;
 
 public class ProcessImpl extends ProcessPOA {
 
+    public ProcessImpl(String name, int nextID) {
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
     public Process left() {
         // TODO Auto-generated method stub

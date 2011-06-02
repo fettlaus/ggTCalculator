@@ -26,22 +26,7 @@ public class Starter {
         String coordinator_name = "Coordinator";      
         final String name;
         Random rnd = new Random();
-        final NamingContextExt nc;
-        // shutdown thread
-        Thread sdh = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ref.quit();
-                try {
-                    nc.unbind(nc.to_name(name));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    orb.shutdown(true);
-                    orb.destroy();
-                }
-            }
-        });
+        final NamingContextExt nc;      
         
         // digest commandline args
         if(args[0] != null){
@@ -79,8 +64,24 @@ public class Starter {
                 .resolve_initial_references("NameService"));
         coordinator = CoordinatorHelper.narrow(nc.resolve_str(coordinator_name));
         
+        // shutdown thread
+        Thread sdh = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ref.quit();
+                try {
+                    nc.unbind(nc.to_name(name));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    orb.shutdown(true);
+                    orb.destroy();
+                }
+            }
+        });
+        
         // create new instance of Starter and get reference
-        StarterImpl starter = new StarterImpl(rootPoa, orb, nc, sdh, coordinator);
+        StarterImpl starter = new StarterImpl(rootPoa, orb, nc, sdh, coordinator, name);
         ref = StarterHelper.narrow(rootPoa.servant_to_reference(starter));
         
         // bind to nameservice        
