@@ -45,8 +45,8 @@ public class StarterImpl extends StarterPOA {
 
     @Override
     public void quitProcess() {
-        // TODO Auto-generated method stub
-
+        for(ggTCalculator.Process process: processes)
+            process.stop();
     }
 
     @Override
