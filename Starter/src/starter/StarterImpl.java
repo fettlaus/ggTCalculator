@@ -47,6 +47,7 @@ public class StarterImpl extends StarterPOA {
     public void quitProcess() {
         for(ggTCalculator.Process process: processes)
             process.stop();
+        processes.clear();
     }
 
     @Override
