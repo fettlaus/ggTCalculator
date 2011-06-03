@@ -27,11 +27,13 @@ public class StarterImpl extends StarterPOA {
     @Override
     public void createProcess(int count) {
         for(int i = 0;i<count;i++){
+            // create new processes
             ProcessImpl newproc = new ProcessImpl(name, nextID, coordinator);
             ggTCalculator.Process ref;
             try {
                 ref = ProcessHelper.narrow(rootPOA.servant_to_reference(newproc));
                 processes.add(ref);
+                // connect processes to coordinator
                 coordinator.addProcess(name, nextID, ref);
                 nextID++;
             } catch (Exception e) {
