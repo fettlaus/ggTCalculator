@@ -98,7 +98,7 @@ public class Starter {
         
         orb.run();
 
-        System.out.println("...Server beendet");
+        System.out.println("...Starter beendet");
         }catch(Exception e){
             e.printStackTrace();
         }
