@@ -25,7 +25,7 @@ public class Coordinator {
         if (args.length >= 1) {
             host = args[0];
         }
-        
+
         if (args.length >= 2) {
             port = args[1];
         }

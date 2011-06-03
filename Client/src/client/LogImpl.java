@@ -23,7 +23,7 @@ public class LogImpl extends LogPOA {
         BufferedWriter bw = null;
         try {
             System.out.println(user + " : " + msg);
-            bw = new BufferedWriter(new FileWriter(file, true));            
+            bw = new BufferedWriter(new FileWriter(file, true));
             bw.write(user + ": " + msg);
             bw.newLine();
             bw.flush();
