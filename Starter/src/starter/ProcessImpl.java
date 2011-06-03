@@ -60,33 +60,32 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
             // add warmup time on first calculation
             try {
                 next = numbers.poll(timeout + timeoutstartup, TimeUnit.SECONDS);
+
+                // start termination if we got nothing after timeout
+                if ((next == null) && coordinator.terminationStart()) {
+                    log.log(name + "-" + Integer.toString(id), "timed out. Termination started");
+                    terminate = true;
+                    termination_start();
+                    // otherwise calculate
+                } else if ((next != null) && (next < number)) {
+                    // remove warmup timeout
+                    timeoutstartup = 0;
+                    // set timestamp
+                    // sleep for given delay
+                    Thread.sleep((long) delay);
+
+                    // calculate
+                    number = ((number - 1) % next) + 1;
+                    // notify neighbours
+                    log.log(name + "-" + Integer.toString(id), "new number " + Integer.toString(number));
+                    left.message(number);
+                    right.message(number);
+
+                }
             } catch (InterruptedException e) {
                 log.log(name + "-" + Integer.toString(id), "Interrupted!");
-            }
-            // start termination if we got nothing after timeout
-            if ((next == null) && coordinator.terminationStart()) {
-                log.log(name + "-" + Integer.toString(id), "timed out. Termination started");
-                terminate = true;
-                termination_start();
-                // otherwise calculate
-            } else if ((next != null) && (next < number)) {
-                // remove warmup timeout
-                timeoutstartup = 0;
-                // set timestamp
-                // sleep for given delay
-                try {
-                    Thread.sleep((long) delay);
-                } catch (InterruptedException e) {
-                    log.log(name + "-" + Integer.toString(id), e.toString());
-                    e.printStackTrace();
-                }
-                // calculate
-                number = ((number - 1) % next) + 1;
-                // notify neighbours
-                log.log(name + "-" + Integer.toString(id), "new number " + Integer.toString(number));
-                left.message(number);
-                right.message(number);
-
+            } catch (Exception e) {
+                log.log(name + "-" + Integer.toString(id), e.toString());
             }
         }
         System.out.println(name + "-" + id + " has shut down");
