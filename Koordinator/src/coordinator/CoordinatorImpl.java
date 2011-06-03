@@ -94,10 +94,15 @@ public class CoordinatorImpl extends CoordinatorPOA {
         procs[p2].message(ggT * rnd.nextInt(9900) + 100);
         procs[p3].message(ggT * rnd.nextInt(9900) + 100);
         */
-        procs[p1].message(ggT * rnd.nextInt(100) + 1);
-        procs[p2].message(ggT * rnd.nextInt(100) + 1);
-        procs[p3].message(ggT * rnd.nextInt(100) + 1);        
-        log.log(name, "three processes started");
+        int p1_n = ggT * (rnd.nextInt(100) + 1);
+        int p2_n = ggT * (rnd.nextInt(100) + 1);
+        int p3_n = ggT * (rnd.nextInt(100) + 1);
+        log.log(name, "sending "+p1_n);
+        procs[p1].message(p1_n);
+        log.log(name, "sending "+p2_n);
+        procs[p2].message(p2_n);
+        log.log(name, "sending "+p3_n);
+        procs[p3].message(p3_n);
         try {
             // wait for a process to finish
             finished.acquire();
