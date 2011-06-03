@@ -22,9 +22,9 @@ public class LogImpl extends LogPOA {
         /* Print Log Entry and add to File List */
         BufferedWriter bw = null;
         try {
-            System.out.println(user + " : " + msg);
+            System.out.println(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS").format(new Date())+"> "+user + ": " + msg);
             bw = new BufferedWriter(new FileWriter(file, true));
-            bw.write(user + ": " + msg);
+            bw.write(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS").format(new Date())+"> "+user + ": " + msg);
             bw.newLine();
             bw.flush();
         } catch (IOException e) {
