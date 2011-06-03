@@ -25,8 +25,8 @@ public class LogImpl extends LogPOA
 		/* Create Log File */
 		try
 		{
-			File file = new File(new SimpleDateFormat("HHmmss").format(new Date()) +".log");
-			FileWriter fw = new FileWriter(file);
+			File file1 = new File(new SimpleDateFormat("HHmmss").format(new Date()) +".log");
+			FileWriter fw = new FileWriter(file1);
 			fw.write(this.file);
 			fw.flush();
 			fw.close();

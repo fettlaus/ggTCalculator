@@ -2,11 +2,7 @@ package client;
 
 
 import ggTCalculator.*;
-import ggTCalculator.CoordinatorPackage.alreadyRunning;
-import ggTCalculator.CoordinatorPackage.noStarter;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -16,7 +12,6 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
-import org.omg.PortableServer.Servant;
 
 
 public class Client 
@@ -55,10 +50,9 @@ public class Client
 				org.omg.CORBA.Object obj = nc.resolve_str(coordname);
 				Coordinator coord = CoordinatorHelper.narrow (obj);
 				LogImpl logI = new LogImpl();
-				log = LogHelper.narrow(rootPoa.servant_to_reference((Servant) logI));
+				log = LogHelper.narrow(rootPoa.servant_to_reference(logI));
 				
 				if(args.length > 2){
-					String cName = args[0];
 					int minggT = Integer.parseInt(args[2]);
 					int maxggT = Integer.parseInt(args[3]);
 					int minDe = Integer.parseInt(args[4]);
