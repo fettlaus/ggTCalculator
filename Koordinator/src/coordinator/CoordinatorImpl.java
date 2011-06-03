@@ -12,7 +12,13 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class CoordinatorImpl extends CoordinatorPOA {
-
+    
+    //config vars
+    int init_lower = 1;
+    int init_upper = 100;
+    int start_lower = 100;
+    int start_upper = 10000;
+    
     ArrayList<Starter> starterlist = new ArrayList<Starter>();
     ArrayList<String> starter_names = new ArrayList<String>();
     ArrayList<Process> processlist = new ArrayList<Process>();
@@ -76,7 +82,7 @@ public class CoordinatorImpl extends CoordinatorPOA {
                 tmp_right = procs[i + 1];
             }
             // give parameters to processes
-            procs[i].set_params(tmp_left, tmp_right, (ggT * (rnd.nextInt(100) + 1) * (rnd.nextInt(100) + 1)), log,
+            procs[i].set_params(tmp_left, tmp_right, (ggT * (rnd.nextInt(init_upper-init_lower+1) + init_lower) * (rnd.nextInt(init_upper-init_lower+1) + init_lower)), log,
                     (rnd.nextInt(maxdelay - mindelay + 1) + mindelay), timeout);
         }
         log.log(name, "params set for each process");
@@ -94,9 +100,9 @@ public class CoordinatorImpl extends CoordinatorPOA {
          * procs[p2].message(ggT * rnd.nextInt(9900) + 100);
          * procs[p3].message(ggT * rnd.nextInt(9900) + 100);
          */
-        int p1_n = ggT * (rnd.nextInt(100) + 1);
-        int p2_n = ggT * (rnd.nextInt(100) + 1);
-        int p3_n = ggT * (rnd.nextInt(100) + 1);
+        int p1_n = ggT * (rnd.nextInt(start_upper-start_lower+1) + start_lower);
+        int p2_n = ggT * (rnd.nextInt(start_upper-start_lower+1) + start_lower);
+        int p3_n = ggT * (rnd.nextInt(start_upper-start_lower+1) + start_lower);
         log.log(name, "sending " + p1_n);
         procs[p1].message(p1_n);
         log.log(name, "sending " + p2_n);
