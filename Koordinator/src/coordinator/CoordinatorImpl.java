@@ -43,13 +43,14 @@ public class CoordinatorImpl extends CoordinatorPOA {
     @Override
     public int calculate(int timeout, int mindelay, int maxdelay, int minprocess, int maxprocess, int ggT, Log log)
             throws noStarter, alreadyRunning {
+        termination_in_process = false;
         Random rnd = new Random();
         int procnum = 0;
         // start random amount of processes
         for (Starter starter : starterlist) {
-            int cnt = rnd.nextInt(maxprocess - minprocess) + minprocess;
+            int cnt = rnd.nextInt(maxprocess - minprocess + 1) + minprocess;
             starter.createProcess(cnt);
-            log.log(name, "added " + cnt + " processes to Starter" + starter);
+            log.log(name, "added " + cnt + " processes to Starter " + starter.getName());
             // TODO: use this?
             procnum += cnt;
         }
@@ -61,17 +62,22 @@ public class CoordinatorImpl extends CoordinatorPOA {
         }
         Process[] procs = processlist.toArray(new Process[0]);
         for (int i = 0; i < procs.length; i++) {
-            Process tmp_left = procs[i - 1];
-            Process tmp_right = procs[i + 1];
+            Process tmp_left;
+            Process tmp_right;
             // build ring
             if (i == 0) {
                 tmp_left = procs[procs.length - 1];
-            } else if (i == procs.length - 1) {
+            } else {
+                tmp_left = procs[i - 1];
+            }
+            if (i == procs.length - 1) {
                 tmp_right = procs[0];
+            } else {
+                tmp_right = procs[i + 1];
             }
             // give parameters to processes
             procs[i].set_params(tmp_left, tmp_right, (ggT * (rnd.nextInt(100) + 1) * (rnd.nextInt(100) + 1)), log,
-                    (rnd.nextInt(maxdelay - mindelay) + mindelay), timeout);
+                    (rnd.nextInt(maxdelay - mindelay + 1) + mindelay), timeout);
         }
         log.log(name, "params set for each process");
         // choose three processes randomly
@@ -82,9 +88,15 @@ public class CoordinatorImpl extends CoordinatorPOA {
             p3 = rnd.nextInt(procs.length - 1);
         }
         // hand random large numbers to processes
+        //TODO change back?
+        /*
         procs[p1].message(ggT * rnd.nextInt(9900) + 100);
         procs[p2].message(ggT * rnd.nextInt(9900) + 100);
         procs[p3].message(ggT * rnd.nextInt(9900) + 100);
+        */
+        procs[p1].message(ggT * rnd.nextInt(100) + 1);
+        procs[p2].message(ggT * rnd.nextInt(100) + 1);
+        procs[p3].message(ggT * rnd.nextInt(100) + 1);        
         log.log(name, "three processes started");
         try {
             // wait for a process to finish
@@ -102,13 +114,13 @@ public class CoordinatorImpl extends CoordinatorPOA {
         for (Starter starter : starterlist) {
             starter.quitProcess();
         }
-        termination_in_process = false;
+        processlist.clear();        
         finished.release();
     }
 
     @Override
     public String[] getStarterList() {
-        return (String[]) starter_names.toArray();
+        return starter_names.toArray(new String[0]);
     }
 
     @Override
