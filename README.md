@@ -2,8 +2,9 @@ ggT-Berechnung
 ==============
 Wir werden fuer Aufgabe 2 der Vorlesung _Verteilte Systeme_ eine verteilte ggT-Berechnung in Java implementieren. Die Verbindung der Komponenten erfolgt mithilfe von Corba.
 
-    Starter <NameService Host> <NameService Port> <Koordinator Name> <Starter Name>
-    Coordinator <NameService Host> <NameService Port> <Koordinator Name>
+    Starter [NameServiceHost [NameServicePort [KoordinatorName [StarterName]]]]
+    Coordinator [NameService Host [NameService Port [KoordinatorName]]]
+    Client NameServiceHost NameServicePort KoordinatorName <list | quit | calc minProcess maxProcess mindelay maxDelay timeout ggT>
 
 Hintergrundwissen
 =================
