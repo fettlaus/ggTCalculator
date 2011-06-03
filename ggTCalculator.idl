@@ -3,6 +3,7 @@ module ggTCalculator
 
     interface Starter
     {
+        string getName();
         void createProcess(in long count);
         void quitProcess();
         void quit();
@@ -32,7 +33,7 @@ module ggTCalculator
 
         StarterListe getStarterList();
 
-        void calculate( in long timeout, in long mindelay, in long maxdelay, in long minprocess, in long maxprocess, in long ggT, in Log log )raises(noStarter, alreadyRunning);
+        long calculate( in long timeout, in long mindelay, in long maxdelay, in long minprocess, in long maxprocess, in long ggT, in Log log )raises(noStarter, alreadyRunning);
         void finished(in long r);
 
         boolean terminationStart();
