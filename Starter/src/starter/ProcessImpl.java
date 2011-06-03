@@ -61,8 +61,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
             try {
                 next = numbers.poll(timeout + timeoutstartup, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                log.log(name + "-" + Integer.toString(id), e.toString());
-                e.printStackTrace();
+                log.log(name + "-" + Integer.toString(id), "Interrupted!");
             }
             // start termination if we got nothing after timeout
             if ((next == null) && coordinator.terminationStart()) {
@@ -109,6 +108,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
     @Override
     public void stop() {
         log.log(name + "-" + Integer.toString(id), "stopped");
+        this_thread.interrupt();
         running = false;
 
     }
