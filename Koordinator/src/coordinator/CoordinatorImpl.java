@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import org.omg.CORBA.ORB;
+
 public class CoordinatorImpl extends CoordinatorPOA {
     
     //config vars
@@ -28,9 +30,11 @@ public class CoordinatorImpl extends CoordinatorPOA {
     int def_numproc_max = 5;
     int def_numproc_min = 2;
     String name;
+    ORB orb;
 
-    public CoordinatorImpl(String name) {
+    public CoordinatorImpl(String name, ORB orb) {
         this.name = name;
+        this.orb = orb;
     }
 
     @Override
@@ -139,6 +143,12 @@ public class CoordinatorImpl extends CoordinatorPOA {
         for (Starter starter : starterlist) {
             starter.quit();
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                orb.shutdown(true);
+            }
+        }).start();
     }
 
     @Override

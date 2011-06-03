@@ -49,7 +49,7 @@ public class Coordinator {
             nc = NamingContextExtHelper.narrow(orb.resolve_initial_references("NameService"));
 
             // create new instance of Coordinator
-            CoordinatorImpl coordinator = new CoordinatorImpl(name);
+            CoordinatorImpl coordinator = new CoordinatorImpl(name,orb);
             ref = CoordinatorHelper.narrow(rootPoa.servant_to_reference(coordinator));
 
             // bind to NameService
