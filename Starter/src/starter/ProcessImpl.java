@@ -85,7 +85,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
             } catch (InterruptedException e) {
                 log.log(name + "-" + Integer.toString(id), "Interrupted!");
             } catch (Exception e) {
-                log.log(name + "-" + Integer.toString(id), e.toString());
+                e.printStackTrace();
             }
         }
         System.out.println(name + "-" + id + " has shut down");
