@@ -75,6 +75,7 @@ public class StarterImpl extends StarterPOA {
             process.stop();
         }
         processes.clear();
+        nextID = 0;
     }
 
 }
