@@ -28,19 +28,19 @@ public class Starter {
         final NamingContextExt nc;
 
         // digest commandline args
-        if (args[0] != null) {
+        if (args.length >= 1) {
             host = args[0];
         }
 
-        if (args[1] != null) {
+        if (args.length >= 2) {
             port = args[1];
         }
 
-        if (args[2] != null) {
+        if (args.length >= 3) {
             coordinator_name = args[2];
         }
 
-        if (args[3] != null) {
+        if (args.length >= 4) {
             name = args[3];
         } else {
             name = "STARTER" + rnd.nextInt();
