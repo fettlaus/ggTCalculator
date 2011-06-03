@@ -129,6 +129,7 @@ public class CoordinatorImpl extends CoordinatorPOA {
         } catch (InterruptedException e) {
             System.err.println(e);
         }
+        log.log(name, "finished with "+result);
         return result;
     }
 
