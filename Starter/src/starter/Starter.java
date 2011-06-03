@@ -43,7 +43,7 @@ public class Starter {
         if (args.length >= 4) {
             name = args[3];
         } else {
-            name = "STARTER" + rnd.nextInt();
+            name = "STARTER" + rnd.nextInt(Integer.MAX_VALUE);
         }
 
         try {
