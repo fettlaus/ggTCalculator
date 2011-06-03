@@ -66,12 +66,14 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
     @Override
     public void message(int update) {
         numbers.add(update);
+        log.log(name+"-"+Integer.toString(id), "update received");
         //update timestamp
         last_received = System.currentTimeMillis();
     }
 
     @Override
     public void stop() {
+        log.log(name+"-"+Integer.toString(id), "stopped");
         running = false;
 
     }
@@ -82,7 +84,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
             try {
                 ready.acquire();
             } catch (InterruptedException e) {
-                log.log(name+Integer.toString(id), e.toString());
+                log.log(name+"-"+Integer.toString(id), e.toString());
                 e.printStackTrace();
             }
             // calculate
@@ -93,12 +95,12 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
                 try {
                     next = numbers.poll(timeout + timeoutstartup, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
-                    log.log(name+Integer.toString(id), e.toString());
+                    log.log(name+"-"+Integer.toString(id), e.toString());
                     e.printStackTrace();
                 }
                 // start termination if we got nothing after timeout
                 if(next == null && coordinator.terminationStart()){
-                    log.log(name+Integer.toString(id), "timed out");
+                    log.log(name+"-"+Integer.toString(id), "timed out. Termination started");
                     terminate = true;
                     termination_start();
                 // otherwise calculate
@@ -110,7 +112,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
                     try {
                         Thread.sleep((long) delay);
                     } catch (InterruptedException e) {
-                        log.log(name+Integer.toString(id), e.toString());
+                        log.log(name+"-"+Integer.toString(id), e.toString());
                         e.printStackTrace();
                     }
                     // calculate
@@ -118,7 +120,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
                     // notify neighbours
                     left.message(number);
                     right.message(number);
-                    log.log(name+Integer.toString(id), "new number "+Integer.toString(number));
+                    log.log(name+"-"+Integer.toString(id), "new number "+Integer.toString(number));
                 }
             }
     }
@@ -132,7 +134,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
         this.log = log;
         this.delay = delay;
         this.timeout = timeout;
-        log.log(name+Integer.toString(id), "got params!");
+        log.log(name+"-"+Integer.toString(id), "got params!");
         // release thread
         ready.release();
     }
