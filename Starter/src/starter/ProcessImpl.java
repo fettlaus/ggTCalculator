@@ -39,7 +39,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
     @Override
     public void message(int update) {
         numbers.add(update);
-        log.log(name + "-" + Integer.toString(id), "update received");
+        log.log(name + "-" + Integer.toString(id), "update received ("+update+")");
         // update timestamp
         last_received = System.currentTimeMillis();
     }
@@ -84,11 +84,13 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
                 // calculate
                 number = ((number - 1) % next) + 1;
                 // notify neighbours
+                log.log(name + "-" + Integer.toString(id), "new number " + Integer.toString(number));
                 left.message(number);
                 right.message(number);
-                log.log(name + "-" + Integer.toString(id), "new number " + Integer.toString(number));
+                
             }
         }
+        System.out.println(name + "-" + id + " has shut down");
     }
 
     @Override
@@ -99,7 +101,7 @@ public class ProcessImpl extends ProcessPOA implements Runnable {
         this.log = log;
         this.delay = delay;
         this.timeout = timeout;
-        log.log(name + "-" + Integer.toString(id), "got params!");
+        log.log(name + "-" + Integer.toString(id), "got params! (delay:"+delay+", timeout:"+timeout+", number:"+number+")");
         // release thread
         ready.release();
     }
